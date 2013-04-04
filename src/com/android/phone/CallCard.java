@@ -1290,6 +1290,7 @@ public class CallCard extends LinearLayout
                         // TODO (CallerInfoAsyncQuery cleanup): Fix the CallerInfo
                         // query to only do the geoDescription lookup in the first
                         // place for incoming calls.
+                    	//carl modify @ 2013-4-4
                         displayNumber = info.geoDescription;  // may be null
                     }
 
@@ -1351,11 +1352,21 @@ public class CallCard extends LinearLayout
             }
             mName.setVisibility(View.VISIBLE);
 
+            //carl modify @ 2013-4-4
             if (displayNumber != null && !call.isGeneric()) {
-                mPhoneNumber.setText(displayNumber);
+            	if(TextUtils.isEmpty(info.geoDescription)){
+                    mPhoneNumber.setText(displayNumber);
+            	}else{
+                    mPhoneNumber.setText(displayNumber+" "+info.geoDescription);
+            	}
                 mPhoneNumber.setVisibility(View.VISIBLE);
             } else {
-                mPhoneNumber.setVisibility(View.GONE);
+            	if(TextUtils.isEmpty(info.geoDescription)){
+                    mPhoneNumber.setVisibility(View.GONE);
+            	}else{
+                    mPhoneNumber.setText(info.geoDescription);
+                    mPhoneNumber.setVisibility(View.VISIBLE);
+            	}
             }
 
             if (label != null && !call.isGeneric()) {
